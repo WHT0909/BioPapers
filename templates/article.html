@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文章详情 - PaperFinding</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/" class="logo">PaperFinding</a>
+            <ul class="nav-menu">
+                <li><a href="/">检索</a></li>
+                <li><a href="/about">关于</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="main-content article-detail-page">
+        <a href="/" class="back-link">&larr; 返回搜索</a>
+        
+        <div id="loading" class="loading" style="display: none;">
+            <div class="spinner"></div>
+            <p>正在加载文献...</p>
+        </div>
+        
+        <div id="articleContent" class="article-detail" style="display: none;">
+            <h1 id="articleTitle" class="detail-title"></h1>
+            
+            <div class="detail-meta">
+                <div class="meta-item">
+                    <strong>作者:</strong>
+                    <span id="articleAuthors"></span>
+                </div>
+                <div class="meta-item">
+                    <strong>期刊:</strong>
+                    <span id="articleJournal"></span>
+                </div>
+                <div class="meta-item">
+                    <strong>发表日期:</strong>
+                    <span id="articleDate"></span>
+                </div>
+                <div class="meta-item">
+                    <strong>PMID:</strong>
+                    <span id="articlePmid"></span>
+                </div>
+                <div class="meta-item" id="doiContainer" style="display: none;">
+                    <strong>DOI:</strong>
+                    <a id="articleDoi" href="#" target="_blank" class="doi-link"></a>
+                </div>
+            </div>
+            
+            <div class="detail-section">
+                <h2>摘要</h2>
+                <p id="articleAbstract" class="detail-abstract"></p>
+            </div>
+        </div>
+        
+        <div id="errorMessage" class="error-message" style="display: none;">
+            <p>无法加载文献，请检查PMID是否正确</p>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2024 PaperFinding. 基于PubMed文献数据库</p>
+    </footer>
+
+    <script src="/static/js/article.js"></script>
+</body>
+</html>

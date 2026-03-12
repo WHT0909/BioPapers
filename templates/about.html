@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>关于 - PaperFinding</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/" class="logo">PaperFinding</a>
+            <ul class="nav-menu">
+                <li><a href="/">检索</a></li>
+                <li><a href="/about" class="active">关于</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="main-content about-page">
+        <section class="about-section">
+            <h1>关于 PaperFinding</h1>
+            <div class="about-content">
+                <div class="about-card">
+                    <h2>系统简介</h2>
+                    <p>PaperFinding 是一个基于PubMed的学术文献检索系统，旨在帮助研究人员和学生快速查找所需的学术论文。</p>
+                </div>
+                
+                <div class="about-card">
+                    <h2>数据来源</h2>
+                    <p>本系统使用 <strong>PubMed</strong> 数据库作为文献来源。PubMed是美国国家医学图书馆(NLM)维护的生物医学文献数据库，包含超过3500万篇生物医学文献。</p>
+                </div>
+                
+                <div class="about-card">
+                    <h2>技术架构</h2>
+                    <ul>
+                        <li><strong>后端</strong>: FastAPI (Python)</li>
+                        <li><strong>前端</strong>: HTML5 + CSS3 + JavaScript</li>
+                        <li><strong>API</strong>: NCBI Entrez E-utilities</li>
+                    </ul>
+                </div>
+                
+                <div class="about-card">
+                    <h2>功能特点</h2>
+                    <ul>
+                        <li>关键词快速检索</li>
+                        <li>分页浏览结果</li>
+                        <li>显示文献详细信息（标题、作者、期刊、发表日期）</li>
+                        <li>提供文献摘要</li>
+                        <li>DOI链接跳转</li>
+                    </ul>
+                </div>
+                
+                <div class="about-card">
+                    <h2>使用说明</h2>
+                    <ol>
+                        <li>在搜索框中输入您感兴趣的研究主题或关键词</li>
+                        <li>点击搜索按钮或按Enter键进行检索</li>
+                        <li>浏览搜索结果，点击文献查看详细信息</li>
+                        <li>使用底部分页按钮浏览更多结果</li>
+                    </ol>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2026 PaperFinding. 基于PubMed文献数据库</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PaperFinding - 文献检索系统</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/" class="logo">PaperFinding</a>
+            <ul class="nav-menu">
+                <li><a href="/" class="active">检索</a></li>
+                <li><a href="/about">关于</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <section class="search-section">
+            <div class="search-container">
+                <h1>文献检索</h1>
+                <p class="subtitle">从PubMed获取最新的学术文献</p>
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="输入关键词搜索文献..." autocomplete="off">
+                    <button id="searchBtn">搜索</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="results-section" id="resultsSection" style="display: none;">
+            <div class="results-header">
+                <h2>搜索结果</h2>
+                <span id="resultCount"></span>
+            </div>
+            <div id="loading" class="loading" style="display: none;">
+                <div class="spinner"></div>
+                <p>正在检索...</p>
+            </div>
+            <div id="resultsList" class="results-list"></div>
+            <div class="pagination" id="pagination"></div>
+        </section>
+
+        <section class="no-results" id="noResults" style="display: none;">
+            <p>未找到相关文献，请尝试其他关键词</p>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2026 PaperFinding. 基于PubMed文献数据库</p>
+    </footer>
+
+    <script src="/static/js/app.js"></script>
+</body>
+</html>
