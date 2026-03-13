@@ -379,6 +379,16 @@ body {
     color: var(--text-primary);
 }
 
+.assistant-section-title{
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    margin-bottom: 0.75rem;
+    /* text-transform: uppercase; */
+    position: relative;
+    letter-spacing: 0.5px;
+}
+
 .tech-list, .feature-list, .usage-list {
     list-style: none;
     padding: 0;
@@ -425,8 +435,10 @@ body {
 .assistant-page {
     max-width: 1600px;
     margin: 0 auto;
-    padding: 2rem;
-    min-height: 80vh;
+    padding: 1.5rem 2rem;
+    height: 80vh;
+    min-height: 600px;
+    box-sizing: border-box;
 }
 
 .assistant-section {
@@ -435,6 +447,9 @@ body {
     padding: 0;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     overflow: hidden;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .assistant-title {
@@ -450,18 +465,21 @@ body {
 .assistant-container {
     display: flex !important;
     gap: 1.5rem;
-    min-height: 70vh;
+    /* height: calc(100% - 120px); */
+    height: 800px;
     padding: 1.5rem;
     flex-direction: row !important;
     flex-wrap: nowrap;
     align-items: stretch;
     width: 100%;
+    overflow: hidden;
+    box-sizing: border-box;
 }
 
 .input-section {
-    width: 35%; /* 调整宽度占比，更合理 */
+    width: 35%;
     min-width: 380px;
-    max-width: 450px; /* 限制最大宽度，避免过宽 */
+    max-width: 450px;
     background-color: #ffffff;
     padding: 1.5rem;
     border-radius: 12px;
@@ -469,10 +487,12 @@ body {
     display: flex;
     flex-direction: column;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    height: 100%;
+    overflow: hidden;
 }
 
 .response-section {
-    flex: 1; /* 占满剩余宽度 */
+    flex: 1;
     background-color: #ffffff;
     padding: 0;
     border-radius: 12px;
@@ -481,7 +501,8 @@ body {
     flex-direction: column;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     overflow: hidden;
-    min-width: 600px; /* 限制最小宽度，保证回答区体验 */
+    min-width: 600px;
+    height: 100%;
 }
 
 .input-options {
@@ -618,8 +639,11 @@ body {
     display: flex;
     flex-direction: column;
     flex: 1;
-    height: 100%;
+    flex-basis: 620px;
+    height: 150px;
     padding: 1.5rem;
+    overflow: hidden;
+    box-sizing: border-box;
 }
 
 .section-title {
@@ -632,7 +656,7 @@ body {
 }
 
 #AI-result-text{
-    padding-left: 10px;
+    padding-left: 25px;
     padding-top: 20px;
 }
 
@@ -644,6 +668,8 @@ body {
     background-color: #f8f9fa;
     border-radius: 8px;
     line-height: 1.8;
+    min-height: 200px;
+    max-height: calc(100% - 80px);
 }
 
 .system-message {
@@ -712,22 +738,37 @@ body {
 
 /* 响应式设计 */
 @media (max-width: 1024px) {
+    .assistant-page {
+        height: auto;
+        min-height: 80vh;
+    }
+    
     .assistant-container {
         flex-direction: column;
         height: auto;
+        min-height: 70vh;
     }
     
     .input-section {
         width: 100%;
         min-width: auto;
+        max-width: none;
+        height: 400px;
     }
     
     .response-section {
-        min-height: 500px;
+        min-height: 400px;
+        height: 400px;
+        min-width: auto;
     }
     
     .chat-container {
-        height: 400px;
+        height: 100%;
+    }
+
+    .chat-history {
+        min-height: 150px;
+        max-height: calc(100% - 60px);
     }
 }
 
