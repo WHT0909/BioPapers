@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文献助手 - PaperFinding</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/" class="logo">PaperFinding</a>
+            <ul class="nav-menu">
+                <li><a href="/">检索</a></li>
+                <li><a href="/assistant" class="active">文献助手</a></li>
+                <li><a href="/about">关于</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="main-content assistant-page">
+        <section class="assistant-section">
+            <h1 class="assistant-title">文献助手</h1>
+            
+            <div class="assistant-container">
+                <!-- 左侧输入区 -->
+                <div class="input-section">
+                    <h2 class="section-title">输入文献内容</h2>
+                    
+                    <div class="input-options">
+                        <div class="input-option">
+                            <h3>文本输入</h3>
+                            <textarea id="textInput" placeholder="请输入文献内容或问题..."></textarea>
+                        </div>
+                        
+                        <div class="input-option">
+                            <h3>PDF上传</h3>
+                            <div class="file-upload">
+                                <input type="file" id="pdfUpload" accept=".pdf">
+                                <label for="pdfUpload" class="upload-label">
+                                    <span class="upload-icon">📁</span>
+                                    <span class="upload-text">点击上传PDF文件</span>
+                                </label>
+                                <div id="fileInfo" class="file-info"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="action-buttons">
+                        <button id="analyzeBtn" class="primary-btn">分析文献</button>
+                        <button id="clearBtn" class="secondary-btn">清空</button>
+                    </div>
+                </div>
+                
+                <!-- 右侧回答区 -->
+                <div class="response-section">
+                    <h2 class="section-title">AI 分析结果</h2>
+                    
+                    <div class="chat-container">
+                        <div id="chatHistory" class="chat-history">
+                            <!-- 对话历史将在这里显示 -->
+                            <div class="system-message">
+                                <p>您好！我是文献助手，可以帮助您分析文献内容、提取创新点、回答相关问题。请输入文献内容或上传PDF文件。</p>
+                            </div>
+                        </div>
+                        
+                        <div class="chat-input">
+                            <input type="text" id="chatInput" placeholder="输入您的问题...">
+                            <button id="sendBtn" class="send-btn">发送</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2026 PaperFinding. 基于PubMed文献数据库</p>
+    </footer>
+
+    <script src="/static/js/assistant.js"></script>
+</body>
+</html>

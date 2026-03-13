@@ -1,15 +1,31 @@
 import os
-from typing import List, Optional
-from fastapi import FastAPI, Query, HTTPException
+from typing import List, Optional, Dict, Any
+from fastapi import FastAPI, Query, HTTPException, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 from Bio import Entrez
-from settings import PUBMED_EMAIL, PUBMED_API_KEY
+from settings import PUBMED_EMAIL, PUBMED_API_KEY, DEEPSEEK_API_KEY
+from langchain_openai import ChatOpenAI
+from langchain_core.prompts import ChatPromptTemplate
+from langchain_core.messages import HumanMessage, AIMessage
+import PyPDF2
+import io
 
 Entrez.email = PUBMED_EMAIL
 API_KEY = PUBMED_API_KEY if PUBMED_API_KEY else None
+
+# 初始化DeepSeek模型
+if DEEPSEEK_API_KEY:
+    llm = ChatOpenAI(
+        model="deepseek-chat",
+        api_key=DEEPSEEK_API_KEY,
+        base_url="https://api.deepseek.com/v1"
+        # temperature=0.7
+    )
+else:
+    llm = None
 
 app = FastAPI(title="PaperFinding API", description="文献检索系统后端API")
 
@@ -177,6 +193,11 @@ async def article_detail(pmid: str):
     with open(os.path.join(BASE_DIR, "templates", "article.html"), "r", encoding="utf-8") as f:
         return f.read()
 
+@app.get("/assistant", response_class=HTMLResponse)
+async def assistant():
+    with open(os.path.join(BASE_DIR, "templates", "assistant.html"), "r", encoding="utf-8") as f:
+        return f.read()
+
 @app.get("/api/search", response_model=SearchResult)
 async def search(
     q: str = Query(..., description="搜索关键词"),
@@ -196,6 +217,112 @@ async def get_article(pmid: str):
     if not article:
         raise HTTPException(status_code=404, detail="文献未找到")
     return article
+
+# 文献助手相关API
+class TextAnalysisRequest(BaseModel):
+    text: str
+
+class ChatRequest(BaseModel):
+    message: str
+    history: List[Dict[str, str]]
+
+class AnalysisResponse(BaseModel):
+    response: str
+
+@app.post("/api/assistant/analyze-text", response_model=AnalysisResponse)
+async def analyze_text(request: TextAnalysisRequest):
+    if not llm:
+        raise HTTPException(status_code=500, detail="DeepSeek API key not configured")
+    
+    try:
+        prompt = ChatPromptTemplate.from_template("""
+        你是一个专业的文献分析助手，请分析以下文献内容，总结其主要内容、创新点、研究方法和结论。
+        
+        文献内容：
+        {text}
+        
+        请按照以下结构输出分析结果：
+        1. 主要内容
+        2. 创新点
+        3. 研究方法
+        4. 结论
+        5. 潜在的研究方向
+        """)
+        
+        chain = prompt | llm
+        response = chain.invoke({"text": request.text})
+        
+        return AnalysisResponse(response=response.content)
+    except Exception as e:
+        print(f"Analysis error: {e}")
+        raise HTTPException(status_code=500, detail="分析失败，请稍后重试")
+
+@app.post("/api/assistant/analyze-pdf", response_model=AnalysisResponse)
+async def analyze_pdf(file: UploadFile = File(...)):
+    if not llm:
+        raise HTTPException(status_code=500, detail="DeepSeek API key not configured")
+    
+    try:
+        # 读取PDF文件
+        content = await file.read()
+        pdf_reader = PyPDF2.PdfReader(io.BytesIO(content))
+        
+        # 提取文本
+        text = ""
+        for page_num in range(len(pdf_reader.pages)):
+            page = pdf_reader.pages[page_num]
+            text += page.extract_text()
+        
+        if not text:
+            raise HTTPException(status_code=400, detail="无法从PDF中提取文本")
+        
+        # 分析文本
+        prompt = ChatPromptTemplate.from_template("""
+        你是一个专业的文献分析助手，请分析以下PDF文献内容，总结其主要内容、创新点、研究方法和结论。
+        
+        文献内容：
+        {text}
+        
+        请按照以下结构输出分析结果：
+        1. 主要内容
+        2. 创新点
+        3. 研究方法
+        4. 结论
+        5. 潜在的研究方向
+        """)
+        
+        chain = prompt | llm
+        response = chain.invoke({"text": text})
+        
+        return AnalysisResponse(response=response.content)
+    except Exception as e:
+        print(f"PDF analysis error: {e}")
+        raise HTTPException(status_code=500, detail="PDF分析失败，请稍后重试")
+
+@app.post("/api/assistant/chat", response_model=AnalysisResponse)
+async def chat(request: ChatRequest):
+    if not llm:
+        raise HTTPException(status_code=500, detail="DeepSeek API key not configured")
+    
+    try:
+        # 构建对话历史
+        messages = []
+        for msg in request.history:
+            if msg["role"] == "user":
+                messages.append(HumanMessage(content=msg["content"]))
+            elif msg["role"] == "assistant":
+                messages.append(AIMessage(content=msg["content"]))
+        
+        # 添加当前消息
+        messages.append(HumanMessage(content=request.message))
+        
+        # 生成回复
+        response = llm.invoke(messages)
+        
+        return AnalysisResponse(response=response.content)
+    except Exception as e:
+        print(f"Chat error: {e}")
+        raise HTTPException(status_code=500, detail="对话失败，请稍后重试")
 
 if __name__ == "__main__":
     import uvicorn
