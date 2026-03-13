@@ -377,6 +377,7 @@ body {
     font-size: 1.3rem;
     line-height: 1.8;
     color: var(--text-primary);
+    text-align: justify;
 }
 
 .assistant-section-title{
