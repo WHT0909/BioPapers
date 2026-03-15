@@ -31,16 +31,43 @@
         </section>
 
         <section class="results-section" id="resultsSection" style="display: none;">
-            <div class="results-header">
-                <h2>搜索结果</h2>
-                <span id="resultCount"></span>
+            <div class="results-container">
+                <aside class="filter-sidebar">
+                    <div class="filter-section">
+                        <h3 class="filter-title">发表日期</h3>
+                        <div class="date-filter-options">
+                            <label class="date-option">
+                                <input type="radio" name="dateFilter" value="all" checked>
+                                <span>全部</span>
+                            </label>
+                            <label class="date-option">
+                                <input type="radio" name="dateFilter" value="1">
+                                <span>近 1 年</span>
+                            </label>
+                            <label class="date-option">
+                                <input type="radio" name="dateFilter" value="5">
+                                <span>近 5 年</span>
+                            </label>
+                            <label class="date-option">
+                                <input type="radio" name="dateFilter" value="10">
+                                <span>近 10 年</span>
+                            </label>
+                        </div>
+                    </div>
+                </aside>
+                <div class="results-content">
+                    <div class="results-header">
+                        <h2>搜索结果</h2>
+                        <span id="resultCount"></span>
+                    </div>
+                    <div id="loading" class="loading" style="display: none;">
+                        <div class="spinner"></div>
+                        <p>正在检索...</p>
+                    </div>
+                    <div id="resultsList" class="results-list"></div>
+                    <div class="pagination" id="pagination"></div>
+                </div>
             </div>
-            <div id="loading" class="loading" style="display: none;">
-                <div class="spinner"></div>
-                <p>正在检索...</p>
-            </div>
-            <div id="resultsList" class="results-list"></div>
-            <div class="pagination" id="pagination"></div>
         </section>
 
         <section class="no-results" id="noResults" style="display: none;">

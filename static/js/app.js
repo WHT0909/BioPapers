@@ -2,6 +2,8 @@ const API_BASE = '/api';
 let currentPage = 1;
 let currentQuery = '';
 let totalPages = 1;
+let currentYearFilter = 'all';
+let allArticles = [];
 
 document.addEventListener('DOMContentLoaded', () => {
     const searchInput = document.getElementById('searchInput');
@@ -12,6 +14,14 @@ document.addEventListener('DOMContentLoaded', () => {
         if (e.key === 'Enter') {
             handleSearch();
         }
+    });
+    
+    const dateFilterRadios = document.querySelectorAll('input[name="dateFilter"]');
+    dateFilterRadios.forEach(radio => {
+        radio.addEventListener('change', (e) => {
+            currentYearFilter = e.target.value;
+            filterArticlesByDate();
+        });
     });
     
     const urlParams = new URLSearchParams(window.location.search);
@@ -62,10 +72,8 @@ async function performSearch(query, page) {
             resultCount.textContent = `共找到 ${data.total_count} 篇文献`;
             totalPages = Math.ceil(data.total_count / 10);
             
-            data.articles.forEach(article => {
-                const card = createArticleCard(article);
-                resultsList.appendChild(card);
-            });
+            allArticles = data.articles;
+            filterArticlesByDate();
             
             renderPagination(page, totalPages);
         } else {
@@ -76,6 +84,45 @@ async function performSearch(query, page) {
         console.error('搜索错误:', error);
         noResults.innerHTML = '<p>搜索出错，请稍后重试</p>';
         noResults.style.display = 'block';
+    }
+}
+
+function filterArticlesByDate() {
+    const resultsList = document.getElementById('resultsList');
+    resultsList.innerHTML = '';
+    
+    const currentYear = new Date().getFullYear();
+    let filterYear;
+    
+    if (currentYearFilter === 'all') {
+        filterYear = 0;
+    } else {
+        filterYear = currentYear - parseInt(currentYearFilter);
+    }
+    
+    let filteredCount = 0;
+    
+    allArticles.forEach(article => {
+        let pubYear = currentYear;
+        if (article.pub_date) {
+            const dateMatch = article.pub_date.match(/(\d{4})/);
+            if (dateMatch) {
+                pubYear = parseInt(dateMatch[1]);
+            }
+        }
+        
+        if (pubYear >= filterYear) {
+            const card = createArticleCard(article);
+            resultsList.appendChild(card);
+            filteredCount++;
+        }
+    });
+    
+    const resultCount = document.getElementById('resultCount');
+    if (currentYearFilter === 'all') {
+        resultCount.textContent = `共找到 ${allArticles.length} 篇文献`;
+    } else {
+        resultCount.textContent = `显示 ${filteredCount} 篇文献（近 ${currentYearFilter} 年）`;
     }
 }
 
