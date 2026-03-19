@@ -19,73 +19,151 @@
     </nav>
 
     <main class="main-content about-page">
-        <section class="about-section">
-            <h1 class="about-title">关于 BioPapers</h1>
-            
-            <div class="about-section-item">
-                <h2 class="section-title">什么是 BioPapers？</h2>
-                <p class="section-content">
-                    BioPapers（原名：PaperFinding 2.0）是一个基于 PubMed 的学术文献检索系统，旨在帮助生物医学领域的研究人员快速查找所需的学术论文。我们提供简洁直观的界面，让您轻松访问 PubMed 数据库中的海量文献资源。此外，BioPapers 内置了 DeepSeek 大模型，能够帮助用户分析文献、总结文章内容、分析创新点等
-                </p>
-            </div>
-
-                        <div class="about-section-item">
-                <h2 class="section-title">和 PaperFinding 相比做了哪些改进？</h2>
-                <p class="section-content">
-                    作为 <a href="https://github.com/WHT0909/PaperFinding" target="_blank" style="text-decoration:none">PaperFinding</a> 的 2.0 版本，我们改进了用户界面，并提供了更为全面的大模型助手功能。和第一版要求调用用户本地部署的模型相比，我们在 BioPapers 中允许用户直接调用官方 API 接口，使服务更加稳定（token 额度暂时由为爱发电的开发者提供😂）
-                </p>
-            </div>
-
-            <div class="about-section-item">
-                <h2 class="section-title">基本功能</h2>
-                <div class="section-content">
-                    <ul class="feature-list">
-                        <li>关键词快速检索 - 支持布尔运算符</li>
-                        <li>显示文献详细信息（标题、作者、期刊、发表日期）</li>
-                        <li>提供文献摘要 - 帮助快速了解文献内容</li>
-                        <li>DOI链接跳转 - 直接访问原文来源</li>
-                        <li>大模型互动问答 - 上传 PDF 或输入文本向大模型提问</li>
-                    </ul>
+        <div class="about-container">
+            <aside class="toc-sidebar">
+                <div class="toc-card">
+                    <h3 class="toc-title">目录</h3>
+                    <nav class="toc-nav">
+                        <ul class="toc-list">
+                            <li><a href="#what-is" class="toc-link active">什么是 BioPapers？</a></li>
+                            <li><a href="#comparison" class="toc-link">和 PaperFinding 相比</a></li>
+                            <li><a href="#features" class="toc-link">基本功能</a></li>
+                            <li><a href="#usage" class="toc-link">使用说明</a></li>
+                            <li><a href="#tech" class="toc-link">技术细节</a></li>
+                            <li><a href="#notes" class="toc-link">注意事项</a></li>
+                        </ul>
+                    </nav>
                 </div>
-            </div>
+            </aside>
             
-            <div class="about-section-item">
-                <h2 class="section-title">使用说明</h2>
-                <div class="section-content">
-                    1. 在搜索框中输入您感兴趣的研究主题或关键词<br/>
-                    2. 点击搜索按钮或按 Enter 键进行检索<br/>
-                    3. 浏览搜索结果，点击文献标题查看详细信息<br/>
-                    4. 使用底部分页按钮浏览更多结果<br/>
-                    5. 在“文献助手”页面和 DeepSeek-V3.2 互动问答<br/>
+            <section class="about-section">
+                <h1 class="about-title">关于 BioPapers</h1>
+                
+                <div class="about-section-item" id="what-is">
+                    <h2 class="section-title">什么是 BioPapers？</h2>
+                    <p class="section-content">
+                        BioPapers（原名：PaperFinding 2.0）是一个基于 PubMed 的学术文献检索系统，旨在帮助生物医学领域的研究人员快速查找所需的学术论文。我们提供简洁直观的界面，让您轻松访问 PubMed 数据库中的海量文献资源。此外，BioPapers 内置了 DeepSeek 大模型，能够帮助用户分析文献、总结文章内容、分析创新点等
+                    </p>
                 </div>
-            </div>
 
-            <div class="about-section-item">
-                <h2 class="section-title">技术细节</h2>
-                <div class="section-content">
-                    <ul class="tech-list">
-                        <li><strong>后端</strong>: Python FastAPI</li>
-                        <li><strong>前端</strong>: HTML5 + CSS3 + JavaScript</li>
-                        <li><strong>数据库 API</strong>: NCBI Entrez E-utilities 官方 PubMed 接口</li>
-                        <li><strong>大模型 API</strong>: DeepSeek-V3.2 非思考模式官方 API，上下文长度 128K，通过 LangChain 框架调用</li>
-                    </ul>
+                <div class="about-section-item" id="comparison">
+                    <h2 class="section-title">和 PaperFinding 相比做了哪些改进？</h2>
+                    <p class="section-content">
+                        作为 <a href="https://github.com/WHT0909/PaperFinding" target="_blank" style="text-decoration:none">PaperFinding</a> 的 2.0 版本，我们改进了用户界面，并提供了更为全面的大模型助手功能。和第一版要求调用用户本地部署的模型相比，我们在 BioPapers 中允许用户直接调用官方 API 接口，使服务更加稳定（token 额度暂时由为爱发电的开发者提供😂）
+                    </p>
                 </div>
-            </div>
-            
-            <div class="about-section-item">
-                <h2 class="section-title">注意事项</h2>
-                <p class="section-content">
-                    - 本系统仅提供文献检索服务，不存储或复制任何文献内容<br/>
-                    - 文献版权归原作者和期刊所有<br/>
-                    - 建议使用稳定的网络连接以获得最佳体验<br/>
-                    - 如需获取全文，请通过 DOI 链接访问原文<br/>
-                </p>
-            </div>
-        </section>
+
+                <div class="about-section-item" id="features">
+                    <h2 class="section-title">基本功能</h2>
+                    <div class="section-content">
+                        <ul class="feature-list">
+                            <li>关键词快速检索 - 支持布尔运算符</li>
+                            <li>显示文献详细信息（标题、作者、期刊、发表日期）</li>
+                            <li>提供文献摘要 - 帮助快速了解文献内容</li>
+                            <li>DOI 链接跳转 - 直接访问原文来源</li>
+                            <li>大模型互动问答 - 上传 PDF 或输入文本向大模型提问</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="about-section-item" id="usage">
+                    <h2 class="section-title">使用说明</h2>
+                    <div class="section-content">
+                        1. 在搜索框中输入您感兴趣的研究主题或关键词<br/>
+                        2. 点击搜索按钮或按 Enter 键进行检索<br/>
+                        3. 浏览搜索结果，点击文献标题查看详细信息<br/>
+                        4. 使用底部分页按钮浏览更多结果<br/>
+                        5. 在"文献助手"页面和 DeepSeek-V3.2 互动问答<br/>
+                    </div>
+                </div>
+
+                <div class="about-section-item" id="tech">
+                    <h2 class="section-title">技术细节</h2>
+                    <div class="section-content">
+                        <ul class="tech-list">
+                            <li><strong>后端</strong>: Python FastAPI</li>
+                            <li><strong>前端</strong>: HTML5 + CSS3 + JavaScript</li>
+                            <li><strong>数据库 API</strong>: NCBI Entrez E-utilities 官方 PubMed 接口</li>
+                            <li><strong>大模型 API</strong>: DeepSeek-V3.2 非思考模式官方 API，上下文长度 128K，通过 LangChain 框架调用</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="about-section-item" id="notes">
+                    <h2 class="section-title">注意事项</h2>
+                    <p class="section-content">
+                        - 本系统仅提供文献检索服务，不存储或复制任何文献内容<br/>
+                        - 文献版权归原作者和期刊所有<br/>
+                        - 建议使用稳定的网络连接以获得最佳体验<br/>
+                        - 如需获取全文，请通过 DOI 链接访问原文<br/>
+                    </p>
+                </div>
+            </section>
+        </div>
     </main>
 
     <footer class="footer">
         <p>&copy; 2026 BioPapers. 基于 PubMed 文献数据库</p>
     </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const tocLinks = document.querySelectorAll('.toc-link');
+            const sections = document.querySelectorAll('.about-section-item');
+            const tocSidebar = document.querySelector('.toc-sidebar');
+            
+            function setActiveLink() {
+                let currentSection = '';
+                
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop - 100;
+                    const sectionHeight = section.offsetHeight;
+                    
+                    if (window.scrollY >= sectionTop && window.scrollY < sectionTop + sectionHeight) {
+                        currentSection = section.getAttribute('id');
+                    }
+                });
+                
+                tocLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === '#' + currentSection) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+            
+            tocLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetSection = document.querySelector(targetId);
+                    
+                    if (targetSection) {
+                        const offsetTop = targetSection.offsetTop - 80;
+                        window.scrollTo({
+                            top: offsetTop,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            window.addEventListener('scroll', function() {
+                setActiveLink();
+                
+                const scrollTop = window.scrollY;
+                const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+                const scrollPercent = scrollTop / maxScroll;
+                const maxMove = 200;
+                
+                // 调整跟随滚动的计算，使其更自然
+                const moveAmount = scrollPercent * maxMove;
+                tocSidebar.style.transform = `translateY(${moveAmount}px)`;
+                tocSidebar.style.transition = 'transform 0.1s ease-out';
+            });
+            
+            setActiveLink();
+        });
+    </script>
 </body>
 </html>

@@ -400,7 +400,7 @@ body {
 
 /* About Page Styles */
 .about-page {
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
     padding: 2rem;
 }
@@ -410,8 +410,6 @@ body {
     border-radius: 12px;
     padding: 2.5rem;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    width: 130%;
-    margin-left: -15%;
 }
 
 .about-title {
@@ -1050,5 +1048,130 @@ body {
         flex-direction: column;
         align-items: flex-start;
         gap: 0.5rem;
+    }
+}
+
+/* About Page TOC Sidebar Styles */
+.about-container {
+    display: flex;
+    gap: 2rem;
+    align-items: flex-start;
+    position: relative;
+    padding-left: 300px;
+}
+
+.toc-sidebar {
+    width: 280px;
+    flex-shrink: 0;
+    position: absolute;
+    left: 2rem;
+    top: 0;
+    transition: transform 0.3s ease-out;
+}
+
+.toc-card {
+    background-color: var(--card-background);
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border-color);
+    margin-right: 50px;
+    height: 450px;
+}
+
+.toc-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid var(--primary-color);
+    text-align: center;
+}
+
+.toc-nav {
+    overflow-y: auto;
+    max-height: calc(100vh - 250px);
+}
+
+.toc-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.toc-list li {
+    margin-bottom: 0.5rem;
+}
+
+.toc-link {
+    display: block;
+    padding: 0.75rem 1rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    font-size: 0.95rem;
+    line-height: 1.4;
+}
+
+.toc-link:hover {
+    background-color: rgba(44, 123, 229, 0.1);
+    color: var(--primary-color);
+}
+
+.toc-link.active {
+    background-color: var(--primary-color);
+    color: white;
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(44, 123, 229, 0.3);
+}
+
+/* Update about-section to work with TOC layout */
+.about-page {
+    max-width: 1400px;
+}
+
+.about-section {
+    flex: 1;
+    min-width: 0;
+}
+
+/* Responsive design */
+@media (max-width: 1024px) {
+    .about-container {
+        flex-direction: column;
+        padding-left: 0;
+    }
+    
+    .toc-sidebar {
+        width: 100%;
+        position: static;
+        left: 0;
+        top: 0;
+    }
+    
+    .toc-card {
+        max-height: none;
+    }
+    
+    .toc-nav {
+        max-height: none;
+        overflow-x: auto;
+    }
+    
+    .toc-list {
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+    }
+    
+    .toc-list li {
+        margin-bottom: 0;
+    }
+    
+    .about-section {
+        width: 100%;
+        margin-left: 0;
     }
 }

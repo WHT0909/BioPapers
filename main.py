@@ -14,7 +14,6 @@ import PyPDF2
 import io
 
 Entrez.email = PUBMED_EMAIL
-# API_KEY = PUBMED_API_KEY if PUBMED_API_KEY else None
 
 # 初始化DeepSeek模型
 if DEEPSEEK_API_KEY:
